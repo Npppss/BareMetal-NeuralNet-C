@@ -39,3 +39,28 @@ void randomize_matrix(Matrix *m){
         }
     }
 }
+
+// perkalian matriks / Dot Product (Pengganti np.dot)
+Matrix* dot_product(Matrix *A, Matrix *B) {
+    // ATURAN MUTLAK MATRIKS: Kolom A harus sama dengan Baris B
+    if (A->cols != B->rows) {
+        printf("FATAL ERROR: Dimensi tidak cocok untuk Dot Product! (%dx%d) dan (%dx%d)\n", 
+            A->rows, A->cols, B->rows, B->cols);
+        exit(1);
+    }
+
+    // Matriks hasil akan memiliki ukuran: Baris A x Kolom B
+    Matrix *C = create_matrix(A->rows, B->cols);
+
+    // Algoritma O(n^3) - Tiga perulangan bersarang
+    for (int i = 0; i < A->rows; i++) {
+        for (int j = 0; j < B->cols; j++) {
+            double sum = 0.0;
+            for (int k = 0; k < A->cols; k++) {
+                sum += A->data[i][k] * B->data[k][j];
+            }
+            C->data[i][j] = sum;
+        }
+    }
+    return C;
+}
