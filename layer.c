@@ -164,3 +164,32 @@ void free_dense_layer(DenseLayer *layer) {
     if (layer->A != NULL) free_matrix(layer->A);
     free(layer);
 }
+
+// Uji Coba
+int main(){
+    srand(time(NULL));
+    
+    printf("=== Simulasi Dense Layer & Sigmoid di C ===\n\n");
+    
+    // 1. Buat Layer: 3 Input Node -> 2 Output Node
+    DenseLayer *hidden_layer = create_dense_layer(3, 2);
+    
+    // 2. Buat Matriks Input (1 Data, 3 Fitur)
+    Matrix *X = create_matrix(1, 3);
+    X->data[0][0] = 0.5; X->data[0][1] = 0.8; X->data[0][2] = 0.2;
+    
+    // 3. Jalankan Forward Pass
+    Matrix *Output = forward_pass(hidden_layer, X);
+    
+    // 4. Cetak Hasil Akhir
+    printf("Hasil Aktivasi Sigmoid (Probabilitas Output):\n");
+    for (int j = 0; j < Output->cols; j++) {
+        printf("Neuron %d: %.4f\n", j+1, Output->data[0][j]);
+    }
+    
+    // 5. Bebaskan Memori
+    free_matrix(X);
+    free_dense_layer(hidden_layer);
+    
+    return 0;
+}
