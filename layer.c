@@ -125,11 +125,32 @@ DenseLayer* create_dense_layer(int input_nodes, int output_nodes){
 
 // Fungsi Aktivasi Sigmoid
 // Fungsi ini mengubah isi matriks secara langsung (in-place)
-void sigmoid(Matrix *m){
+void sigmoid_matrix(Matrix *m){
     for (int i = 0; i < m->rows; i++){
         for (int j = 0; j < m->cols; j++){
             // Rumus: 1 / (1 + e^-x)
             m->data[i][j] = 1.0 / (1.0 + exp(-m->data[i][j]));
         }
     }
+}
+
+// Forward Pass untuk Dense Layer
+Matrix* forward_pass(DenseLayer *layer, Matrix *input){
+    // Bersihkan sisa memori Z dan A dari proses sebelumnya (jika ada)
+    if (layer->Z != NULL) free_matrix(layer->Z);
+    if (layer->A != NULL) free_matrix(layer->A);
+
+    // Langkah 1: Z = X . W
+    layer->Z = dot_product(input, layer->weights);
+
+    //langkah 2: Z = Z + b
+    add_bias(layer->Z, layer->biases);
+
+    // Langkah 3: A = Sigmoid(Z)
+    // Kita gandakan Z ke A, lalu jalankan sigmoid pada A.
+    // Tujuannya agar Z asli tetap utuh untuk keperluan kalkulus di Backpropagation nanti!
+    layer->A = copy_matrix(layer->Z);
+    sigmoid_matrix(layer->A);
+
+    return layer->A;
 }
