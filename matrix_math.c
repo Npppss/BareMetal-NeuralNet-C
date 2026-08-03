@@ -64,3 +64,31 @@ Matrix* dot_product(Matrix *A, Matrix *B) {
     }
     return C;
 }
+
+// Penambahan BIAS (Pengganti NumPy Broadcasting)
+// Di NumPy, Z + b terjadi otomatis. Di C, kita harus menambakan bias (1 baris) 
+// secara manual ke setiap baris dari matriks Z.
+void add_bias(Matrix *m, Matrix *bias){
+    if (m->cols != bias->cols || bias->rows != 1){
+        printf("FATAL ERROR: Dimensi Bias salah!\n");
+        exit(1);
+    }
+    for (int i = 0; i < m->rows; i++) {
+        for (int j = 0; j < m->cols; j++) {
+            m->data[i][j] += bias->data[0][j];
+        }
+    }
+}
+
+// Fungsi Bantuan untuk Mencetak Matriks
+void print_matrix(Matrix *m, const char *name) {
+    printf("Matriks %s (%dx%d):\n", name, m->rows, m->cols);
+    for (int i = 0; i < m->rows; i++) {
+        for (int j = 0; j < m->cols; j++) {
+            printf("%8.4f ", m->data[i][j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+
+}
