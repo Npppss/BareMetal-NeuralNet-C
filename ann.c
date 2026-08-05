@@ -52,4 +52,32 @@ Matrix* dot_product(Matrix *A, Matrix *B){
 
      // Matriks hasil akan memiliki ukuran: Baris A x Kolom B
     Matrix *C = create_matrix(A->rows, B->cols);
+
+    // Algoritma O(n^3) - Tiga perulangan bersarang
+    for (int i = 0; i < A->rows; i++){
+        for (int j = 0; j < B->cols; j++){
+            double sum = 0.0;
+            for (int k = 0; k < A->cols; k++){
+                sum += A->data[i][k] * B->data[k][j];
+            }
+            C->data[i][j] = sum;
+        }
+    }
+    return C;
+}
+
+// Penambahan BIAS (Pengganti NumPy Broadcasting)
+// Di NumPy, Z + b terjadi otomatis. Di C, kita harus menambakan bias (1 baris) 
+// secara manual ke setiap baris dari matriks Z.
+
+void add_bias(Matrix *m, Matrix *bias){
+    if (m->cols != bias->cols || bias->rows != 1){
+        printf("FATAL ERROR: Dimensi Bias salah!\n");
+        exit(1);
+    }
+    for (int i = 0; i < m->rows; i++) {
+        for (int j = 0; j < m->cols; j++) {
+            m->data[i][j] += bias->data[0][j];
+        }
+    }
 }
