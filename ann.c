@@ -18,3 +18,12 @@ Matrix* create_matrix(int rows, int cols){
     }
     return m;
 }
+
+void free_matrix(Matrix *m){
+    if (m == NULL) return;
+    for (int i = 0; i < m->rows; i++){
+        free(m->data[i]);
+    }
+    free(m->data);
+    free(m);
+}
