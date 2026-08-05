@@ -28,8 +28,8 @@ void free_matrix(Matrix *m){
     free(m);
 }
 
-// Inisialisasi matriks dengan nilai acak (Pengganti np.random.randn)
 
+// Inisialisasi matriks dengan nilai acak (Pengganti np.random.randn)
 void randomize_matrix(Matrix *m){
     for (int i = 0; i < m->rows; i++){
         for (int j = 0; j < m->cols; j++){
@@ -39,4 +39,17 @@ void randomize_matrix(Matrix *m){
             m->data[i][j] = random_value;
         }
     }
+}
+
+// perkalian matriks / Dot Product (Pengganti np.dot)
+Matrix* dot_product(Matrix *A, Matrix *B){
+    // ATURAN MUTLAK MATRIKS: Kolom A harus sama dengan Baris B
+    if (A->cols != B->rows){
+        printf("FATAL ERROR: Dimensi tidak cocok untuk Dot Product! (%dx%d) dan (%dx%d)\n", 
+            A->rows, A->cols, B->rows, B->cols);
+        exit(1);
+    }
+
+     // Matriks hasil akan memiliki ukuran: Baris A x Kolom B
+    Matrix *C = create_matrix(A->rows, B->cols);
 }
