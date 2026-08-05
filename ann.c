@@ -92,3 +92,13 @@ Matrix* copy_matrix(Matrix *m){
     }
     return copy;
 }
+
+// Sturktur Dense Layer
+typedef struct {
+    int input_nodes;   // Matrix W
+    int output_nodes;  // Matrix b
+    Matrix *weights;   //Matriks W
+    Matrix *biases;    //Matriks b
+    Matrix *Z;        // Menyimpan nilai linear (X.W + b) sementara untuk Backprop
+    Matrix *A;        // Menyimpan nilai aktivasi (sigmoid(Z)) sementara untuk Backprop
+} DenseLayer;
