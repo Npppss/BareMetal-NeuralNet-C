@@ -81,3 +81,14 @@ void add_bias(Matrix *m, Matrix *bias){
         }
     }
 }
+
+// (Fungsi bantuan baru untuk menggandakan matriks, sangat berguna agar nilai Z asli tidak hilang)
+Matrix* copy_matrix(Matrix *m){
+    Matrix *copy = create_matrix(m->rows, m->cols);
+    for (int i = 0; i < m->rows; i++){
+        for (int j = 0; j < m->cols; j++){
+            copy->data[i][j] = m->data[i][j];
+        }
+    }
+    return copy;
+}
