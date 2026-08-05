@@ -27,3 +27,16 @@ void free_matrix(Matrix *m){
     free(m->data);
     free(m);
 }
+
+// Inisialisasi matriks dengan nilai acak (Pengganti np.random.randn)
+
+void randomize_matrix(Matrix *m){
+    for (int i = 0; i < m->rows; i++){
+        for (int j = 0; j < m->cols; j++){
+            // rand() menghasilkan angka positif besar.
+            // Kita ubah agar rentangnya menjadi antara -1.0 hingga 1.0
+            double random_value = ((double)rand() / RAND_MAX) * 2.0 - 1.0;
+            m->data[i][j] = random_value;
+        }
+    }
+}
