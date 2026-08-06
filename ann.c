@@ -153,3 +153,6 @@ Matrix* forward_pass(DenseLayer *layer, Matrix *input){
     // Kembalikan probabilitas hasil akhir (A)
     return layer->A;
 }
+
+// Fungsi Pembebas Memori Layer
+void free_dense_layer()
