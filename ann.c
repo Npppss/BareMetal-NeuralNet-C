@@ -102,3 +102,22 @@ typedef struct {
     Matrix *Z;        // Menyimpan nilai linear (X.W + b) sementara untuk Backprop
     Matrix *A;        // Menyimpan nilai aktivasi (sigmoid(Z)) sementara untuk Backprop
 } DenseLayer;
+
+DenseLayer* create_dense_layer(int input_nodes, int output_nodes){
+    DenseLayer *layer = (DenseLayer*)malloc(sizeof(DenseLayer));
+    layer->input_nodes = input_nodes;
+    layer->output_nodes = output_nodes;
+
+    // Alokasi matriks bobot (Input x Output) dan inisialisasi dengan nilai acak
+    layer->weights = create_matrix(input_nodes, output_nodes);
+    randomize_matrix(layer->weights);
+
+    // Alokasi matriks bias (1 x Output). Nilai awal otomatis 0.0 dari calloc
+    layer->biases = create_matrix(1, output_nodes);
+
+    // Z dan A diset NULL dulu karena baru akan terisi saat Forward Pass
+    layer->Z = NULL;
+    layer->A = NULL;
+    
+    return layer;
+}
