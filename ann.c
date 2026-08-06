@@ -121,3 +121,13 @@ DenseLayer* create_dense_layer(int input_nodes, int output_nodes){
     
     return layer;
 }
+
+// Fungsi Aktivasi Sigmoid (Mengubah matriks secara in-place)
+void sigmoid_matrix(Matrix *m){
+    for (int i = 0; i < m->rows; i++){
+        for (int j = 0; j < m->cols; j++){
+            // Rumus: 1 / (1 + e^-x)
+            m->data[i][j] = 1.0 / (1.0 + exp(-m->data[i][j]));
+        }
+    }
+}
