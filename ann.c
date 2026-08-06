@@ -131,3 +131,25 @@ void sigmoid_matrix(Matrix *m){
         }
     }
 }
+
+// Fungsi Forward Pass untuk Dense Layer
+Matrix* forward_pass(DenseLayer *layer, Matrix *input){
+    // Bersihkan sisa memori Z dan A dari proses epoch sebelumnya (jika ada)
+    if (layer->Z != NULL) free_matrix(layer->Z);
+    if (layer->A != NULL) free_matrix(layer->A);
+
+    // 1. Z = X . W (Kalkulasi Linear)
+    layer->Z = dot_product(input, layer->weights);
+
+    // 2. Z = Z + b (Penambahan Bias)
+    add_bias(layer->Z, layer->biases);
+
+    // 3. A = sigmoid(Z) (Kalkulasi Aktivasi)
+    // Gandakan matriks Z ke A, lalu jalankan sigmoid pada A
+    // (Z asli tetap disimpan murni untuk kalkulus Backprop nanti)
+    layer->A = copy_matrix(layer->Z);
+    sigmoid_matrix(layer->A);
+
+    // Kembalikan probabilitas hasil akhir (A)
+    return layer->A;
+}
