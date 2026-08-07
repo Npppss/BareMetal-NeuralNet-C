@@ -167,6 +167,7 @@ void free_dense_layer(DenseLayer *layer){
     free(layer);
 }
 
+// Memutar baris jadi kolom (Transpose)
 Matrix* transpose(Matrix *m){
     Matrix *t =  crate_matrix(m->cols, m->rows);
     for (int i = 0; i < m->rows; i++){
@@ -177,4 +178,19 @@ Matrix* transpose(Matrix *m){
     return t;
 }
 
-// Memutar baris jadi kolom (Transpose)
+// Pengurangan matriks (A - B) untuk hitung error
+Matrix* subtract_matrix(Matrix *A, Matrix *B){
+    if (A->rows != B->rows || A->cols != B->cols){
+        printf("FATAL ERROR: Dimensi Matriks tidak cocok untuk pengurangan!\n");
+        exit(1);
+    }
+    Matrix *C = create_matrix(A->rows, A->cols);
+    for (int i = 0; i < A->rows; i++){
+        for (int j = 0; j < A->cols; j++){
+            C->data[i][j] = A->data[i][j] - B->data[i][j];
+        }
+    }
+    return C;
+}
+
+// Perkalian Elemen-per-Elemen (Hadamard Product)
