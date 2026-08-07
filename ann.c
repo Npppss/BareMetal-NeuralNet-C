@@ -166,3 +166,15 @@ void free_dense_layer(DenseLayer *layer){
 
     free(layer);
 }
+
+Matrix* transpose(Matrix *m){
+    Matrix *t =  crate_matrix(m->cols, m->rows);
+    for (int i = 0; i < m->rows; i++){
+        for (int j = 0; j < m->cols; j++){
+            t->data[j][i] = m->data[i][j];
+        }
+    }
+    return t;
+}
+
+// Memutar baris jadi kolom (Transpose)
