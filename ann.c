@@ -238,5 +238,12 @@ Matrix* backward_pass(DenseLayer *layer, Matrix *X_input, Matrix *dA, double lea
     }
 
     // Update Bias (Menjumlahkan error dari 4 baris data XOR)
+    for (int j = 0; j < layer->biases->cols; j++) {
+        double sum_dz = 0.0;
+        for (int i = 0; i < dZ->rows; i++) {
+            sum_dz += dZ->data[i][j];
+        }
+        layer->biases->data[0][j] -= (learning_rate * sum_dz);
+    }
     
 }
