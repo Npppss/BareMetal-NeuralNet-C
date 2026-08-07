@@ -194,3 +194,16 @@ Matrix* subtract_matrix(Matrix *A, Matrix *B){
 }
 
 // Perkalian Elemen-per-Elemen (Hadamard Product)
+Matrix* multiply_elements(Matrix *A, Matrix *B){
+    if (A->rows != B->rows || A->cols != B->cols){
+        printf("FATAL ERROR: Dimensi Matriks tidak cocok untuk perkalian elemen!\n");
+        exit(1);
+    }
+    Matrix *C = create_matrix(A->rows, A->cols);
+    for (int i = 0; i < A->rows; i++){
+        for (int j = 0; j < A->cols; j++){
+            C->data[i][j] = A->data[i][j] * B->data[i][j];
+        }
+    }
+    return C;
+}
