@@ -231,4 +231,12 @@ Matrix* backward_pass(DenseLayer *layer, Matrix *X_input, Matrix *dA, double lea
     Matrix *W_T = transpose(layer->weights);
     Matrix *dX = dot_product(dZ, W_T);
 
+    for (int i = 0; i < layer->weights->rows; i++) {
+        for (int j = 0; j < layer->weights->cols; j++) {
+            layer->weights->data[i][j] -= (learning_rate * dW->data[i][j]);
+        }
+    }
+
+    // Update Bias (Menjumlahkan error dari 4 baris data XOR)
+    
 }
