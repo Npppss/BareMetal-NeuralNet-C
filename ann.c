@@ -221,8 +221,14 @@ Matrix* sigmoid_derivative(Matrix *A){
 
 // Mesin Utama Backpropagation
 Matrix* backward_pass(DenseLayer *layer, Matrix *X_input, Matrix *dA, double learning_rate){
-    
+
     Matrix *sig_deriv = sigmoid_derivative(layer->A);
     Matrix *dZ = multiply_elements(dA, sig_deriv);
+
+    Matrix *X_T = transpose(X_input);
+    Matrix *dW = dot_product(X_T, dZ);
+    
+    Matrix *W_T = transpose(layer->weights);
+    Matrix *dX = dot_product(dZ, W_T);
 
 }
