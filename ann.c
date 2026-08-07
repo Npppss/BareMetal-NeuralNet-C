@@ -218,3 +218,9 @@ Matrix* sigmoid_derivative(Matrix *A){
     }
     return deriv;
 }
+
+// Mesin Utama Backpropagation
+Matrix* backward_pass(DenseLayer *layer, Matrix *X_input, Matrix *dA, double learning_rate){
+
+    
+}
