@@ -169,7 +169,7 @@ void free_dense_layer(DenseLayer *layer){
 
 // Memutar baris jadi kolom (Transpose)
 Matrix* transpose(Matrix *m){
-    Matrix *t =  crate_matrix(m->cols, m->rows);
+    Matrix *t =  create_matrix(m->cols, m->rows);
     for (int i = 0; i < m->rows; i++){
         for (int j = 0; j < m->cols; j++){
             t->data[j][i] = m->data[i][j];
@@ -206,4 +206,15 @@ Matrix* multiply_elements(Matrix *A, Matrix *B){
         }
     }
     return C;
+}
+
+// Turunan Sigmoid: A * (1 - A)
+Matrix* sigmoid_derivative(Matrix *A){
+    Matrix *deriv= create_matrix(A->rows, A->cols);
+    for (int i = 0; i < A->rows; i++){
+        for (int j = 0; j < A->cols; j++){
+            deriv->data[i][j] = A->data[i][j] * (1.0 - A->data[i][j]);
+        }
+    }
+    return deriv;
 }
