@@ -245,5 +245,12 @@ Matrix* backward_pass(DenseLayer *layer, Matrix *X_input, Matrix *dA, double lea
         }
         layer->biases->data[0][j] -= (learning_rate * sum_dz);
     }
+
+    free_matrix(sig_deriv);
+    free_matrix(dZ);
+    free_matrix(X_T);
+    free_matrix(dW);
+    free_matrix(W_T);
     
+    return dX; 
 }
