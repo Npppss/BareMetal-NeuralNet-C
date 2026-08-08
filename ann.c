@@ -254,3 +254,11 @@ Matrix* backward_pass(DenseLayer *layer, Matrix *X_input, Matrix *dA, double lea
     
     return dX; 
 }
+
+// Main Training Loop
+int main(){
+    srand(time(NULL)); 
+
+    printf("=== Training Multi-Layer Perceptron XOR Di C ===\n");
+    
+}
